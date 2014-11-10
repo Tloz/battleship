@@ -2,3 +2,9 @@ TODO:
 * Find a way to tell when a ship has sunk.
 Not possible with actual implementation
 Hint: maybe change shoot map param to player, and implement a ship array in player struct
+Other way: change possible values on the map. Each boat square has 2 possible value,
+depending on boat type: sink or not. Just have to count sink value for each boat
+
+* Secure input in ask_and_place_boat.
+Actually causes endless loop on typing a char before any number.
+Empty stdin buffer didn't work

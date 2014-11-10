@@ -1,29 +1,45 @@
-# Makefile pour Battleship
+# Makefile pour prog
 # Copyright (C) Emeric Fremion <scrimet@hotmail.fr>
 # Licenced under the terms of the GLP
-# Created on November 10 2014
+# Created on Month Day Year
+# Description
 
-EXEC=battleship
+# project name (generate executable with this name)
+TARGET   = battleship.app
 
-CC=gcc
-CFLAGS=-W -Wall -std=c99 -g
-NAZIFLAGS=-Wextra -pedantic
-LDFLAGS=
-SRC= $(wildcard *.c)
-OBJ= $(SRC:.c=.o)
+CC       = gcc
+# compiling flags here
+CFLAGS   = -std=c99 -Wall -I.
 
-all: $(EXEC)
+LINKER   = gcc -o
+# linking flags here
+LFLAGS   = -Wall -I. -lm
 
-battleship: $(OBJ)
-	@$(CC) -o $@.app $^ $(LDFLAGS)
+# change these to set the proper directories where each files shoould be
+SRCDIR   = src
+OBJDIR   = obj
+BINDIR   = bin
 
-%.o: %.c
-	@$(CC) -o $@ -c $< $(CFLAGS)
+SOURCES  := $(wildcard $(SRCDIR)/*.c)
+INCLUDES := $(wildcard $(SRCDIR)/*.h)
+OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+rm       = rm -f
 
-.PHONY: clean mrproper
 
+$(BINDIR)/$(TARGET): $(OBJECTS)
+	@$(LINKER) $@ $(LFLAGS) $(OBJECTS)
+	@echo "Linking complete!"
+
+$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "Compiled "$<" successfully!"
+
+.PHONEY: clean
 clean:
-	@rm -rf *.o
+	@$(rm) $(OBJECTS)
+	@echo "Cleanup complete!"
 
-mrproper: clean
-	@rm -rf $(EXEC)
+.PHONEY: remove
+remove: clean
+	@$(rm) $(BINDIR)/$(TARGET)
+	@echo "Executable removed!"
