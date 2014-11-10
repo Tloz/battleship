@@ -1,0 +1,4 @@
+TODO:
+* Find a way to tell when a ship has sunk.
+Not possible with actual implementation
+Hint: maybe change shoot map param to player, and implement a ship array in player struct
