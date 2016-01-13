@@ -206,9 +206,18 @@ bool Map::checkDefeat()
     return false;
 }
 
-/*
-bool Map::isThereABoatHere(unsigned int x, unsigned int y)
+void Map::hit(unsigned int x, unsigned int y)
 {
+    if( (m_squares[y][x] == 0) || (m_squares[y][x] == 2) )
+    {
+        m_squares[y][x]++;
+    }
+}
+
+
+Boat* Map::getBoatHere(unsigned int x, unsigned int y)
+{
+    /*
     for (auto it = m_boats.begin() ; it != m_boats.end(); ++it)
     {
         if (it->orientation()) // vertical
@@ -221,5 +230,6 @@ bool Map::isThereABoatHere(unsigned int x, unsigned int y)
             return ;
         }
     }
+    */
+    return NULL;
 }
-*/

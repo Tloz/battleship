@@ -21,26 +21,32 @@ Player::~Player()
 
 }
 
-std::array<std::array<unsigned int, 10>, 10> Player::map()
+Map Player::map()
 {
-    return m_map.squares();
+    return m_map;
 }
 
 
 bool Player::shoot(unsigned int x, unsigned int y, Player* target)
 {
-    std::array<std::array<unsigned int, 10>, 10> map = target->map();
-    printf("Debug: Shooting on (%i, %i)\n", x, y);
-    if((map[y][x] == 0) || (map[y][x] == 1)) // Si on tire sur un espace vide
+    Map map = target->map();
+    std::array<std::array<unsigned int, 10>, 10> squares = map.squares();
+    std::cout << "Debug: Shooting on ("<< (char) ('A' + x) << ", " << y << ")" << std::endl;
+    map.hit(x, y);
+
+    if((squares[x][y] == 0) || (squares[x][y] == 1)) // Si on tire sur un espace vide
     {
         std::cout << "Nothing on (" << (char) ('A' + x) << ", " << y << ")" << std::endl;
-        map[y][x] = 1;
         return false;
     }
-    else if((map[y][x] == 2) || (map[y][x] == 3)) // Si on tire sur un espace rempli
+    else if((squares[x][y] == 2) || (squares[x][y] == 3)) // Si on tire sur un espace rempli
     {
         std::cout << "Hit something on (" << (char) ('A' + x) << ", " << y << ")" << std::endl;
-        map[y][x] = 3;
+        // Pour les squares, on ajoute 1, pour le bateau, on passe à true
+        if(map.getBoatHere(x, y) != NULL)
+        {
+
+        }
         return true;
     }
     else // erreur
@@ -68,14 +74,15 @@ bool Player::shoot_missile(unsigned int x, unsigned int y, Player* target)
 
 int Player::sonar(unsigned int x, unsigned int y, Player* target)
 {
-    std::array<std::array<unsigned int, 10>, 10> map = target->map();
+    Map map = target->map();
+    std::array<std::array<unsigned int, 10>, 10> squares = map.squares();
     int count = 0;
 
     for(int i = -1; i <= 1; ++i)
     {
         for(int j = -1; j <= 1; ++j)
         {
-            if((map[x + i][y + j] == 1) || (map[x + i][y + j] == 3))
+            if((squares[x + i][y + j] == 1) || (squares[x + i][y + j] == 3))
                 ++count;
         }
     }

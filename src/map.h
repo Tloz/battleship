@@ -34,8 +34,9 @@ public:
     bool check_boat_placement(Boat* b, unsigned int x, unsigned int y, bool orientation);
     void placeBoat(Boat* b, unsigned int x, unsigned int y, bool orientation);
 
-    bool isThereABoatHere(unsigned int x, unsigned int y);
+    Boat* getBoatHere(unsigned int x, unsigned int y);
     std::vector<Boat> boats();
     std::array<std::array<unsigned int, 10>, 10> squares();
     bool checkDefeat();
+    void hit(unsigned int x, unsigned int y);
 };

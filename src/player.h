@@ -27,7 +27,7 @@ public:
 
     void setMap(Map m);
 
-    std::array<std::array<unsigned int, 10>, 10> map();
+    Map map();
 
     bool shoot(unsigned int x, unsigned int y, Player* target);
     bool shoot_missile(unsigned int x, unsigned int y, Player* target);
