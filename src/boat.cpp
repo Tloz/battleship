@@ -34,6 +34,14 @@ void Boat::destroy(unsigned int where)
 {
     // Might raise an exception if where is higer than size
     m_squares[where] = true;
+    for(int i = 0; i < m_size; ++i)
+    {
+        if(!m_squares[i])
+        {
+            return;
+        }
+    }
+    sunk();
 }
 
 void Boat::sunk()
