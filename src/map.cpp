@@ -37,11 +37,50 @@ void Map::print(bool mine)
         {
             if(mine)
             {
-                std::cout << m_squares[i][j];
+                switch(m_squares[i][j])
+                {
+                    case 0:
+                        std::cout << " ";
+                        break;
+
+                    case 1:
+                        std::cout << "x";                        
+                        break;
+
+                    case 2:
+                        std::cout << "#";
+                        break;
+
+                    case 3:
+                        std::cout << "O";
+                        break;
+
+                    default:
+                        std::cout << "%";
+                        break;
+                }
             }
             else
             {
-                std::cout << m_squares[i][j];
+                switch(m_squares[i][j])
+                {
+                    case 0:
+                    case 2:
+                        std::cout << " ";
+                        break;
+
+                    case 1:
+                        std::cout << "x";                        
+                        break;
+
+                    case 3:
+                        std::cout << "O";
+                        break;
+
+                    default:
+                        std::cout << "%";
+                        break;
+                }
             }
             if(j != 9)
             {
