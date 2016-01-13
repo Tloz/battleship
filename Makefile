@@ -7,9 +7,9 @@
 # project name (generate executable with this name)
 TARGET   = battleship.app
 
-CC       = gcc
+CC       = g++
 # compiling flags here
-CFLAGS   = -std=c99 -Wall -I.
+CFLAGS   = -Wall -I.
 
 LINKER   = gcc -o
 # linking flags here
