@@ -29,6 +29,7 @@ public:
     ~Map();
 
     void print(bool mine);
+    void placeBoat(Boat* b, unsigned int x, unsigned int y);
 
     bool isThereABoatHere(unsigned int x, unsigned int y);
     std::vector<Boat> boats();
