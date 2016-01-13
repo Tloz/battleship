@@ -1,0 +1,5 @@
+Create Game object and routines
+
+Create new game creation process
+
+Create simplecurses interface
