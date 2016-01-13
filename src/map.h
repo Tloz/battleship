@@ -18,8 +18,10 @@ private:
     std::array<std::array<unsigned int, 10>, 10> m_squares;
     /*********************************************************\
     | *  Valeurs possibles sur les cases:                     |
-    | * - 0: aucune interraction avec la case                 |
-    | * - 1: on a attaqué la case                             |
+    |   * - 0: la case est vide                               |
+    |   * - 1: la case est vide et attaquée                   |
+    |   * - 2: la case est remplie                            |
+    |   * - 3: la case est remplie et attaquée                |
     \*********************************************************/
 
 public:
