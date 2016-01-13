@@ -3,3 +3,6 @@ Create Game object and routines
 Create new game creation process
 
 Create simplecurses interface
+create simple AI
+
+create other AI
