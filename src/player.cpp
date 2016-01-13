@@ -16,6 +16,11 @@ Player::Player(std::string name) : m_name(name)
     m_sonar = 0;
 }
 
+Player::~Player()
+{
+
+}
+
 std::array<std::array<unsigned int, 10>, 10> Player::map()
 {
     return m_map.squares();
@@ -26,14 +31,16 @@ bool Player::shoot(unsigned int x, unsigned int y, Player* target)
 {
     std::array<std::array<unsigned int, 10>, 10> map = target->map();
     printf("Debug: Shooting on (%i, %i)\n", x, y);
-    if((map[x][y] == 0) || (map[x][y] == 1)) // Si on tire sur un espace vide
+    if((map[y][x] == 0) || (map[y][x] == 1)) // Si on tire sur un espace vide
     {
-        map[x][y] = 1;
+        std::cout << "Nothing on (" << (char) ('A' + x) << ", " << y << ")" << std::endl;
+        map[y][x] = 1;
         return false;
     }
-    else if((map[x][y] == 2) || (map[x][y] == 3)) // Si on tire sur un espace rempli
+    else if((map[y][x] == 2) || (map[y][x] == 3)) // Si on tire sur un espace rempli
     {
-        map[x][y] = 3;
+        std::cout << "Hit something on (" << (char) ('A' + x) << ", " << y << ")" << std::endl;
+        map[y][x] = 3;
         return true;
     }
     else // erreur
@@ -45,13 +52,18 @@ bool Player::shoot(unsigned int x, unsigned int y, Player* target)
 
 bool Player::shoot_missile(unsigned int x, unsigned int y, Player* target)
 {
+    bool res = false;
     for(int i = -1; i <= 1; ++i)
     {
         for(int j = -1; j <= 1; ++j)
         {
-            shoot(x + i, y + j, target);
+            if(shoot(x + i, y + j, target))
+            {
+                res = true;
+            }
         }
     }
+    return res;
 }
 
 int Player::sonar(unsigned int x, unsigned int y, Player* target)
@@ -68,4 +80,9 @@ int Player::sonar(unsigned int x, unsigned int y, Player* target)
         }
     }
     return count;
+}
+
+void Player::setMap(Map m)
+{
+    m_map = m;
 }

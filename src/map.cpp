@@ -112,8 +112,34 @@ void Map::print(bool mine)
     std::cout << "  \\+++++++++++++++++++/" << std::endl;
 }
 
-bool Map::check_boat_placement(Boat* b, unsigned int x, unsigned int y, bool orientation)
+bool Map::check_boat_placement(Boat* b, unsigned int x, unsigned int y, bool dir)
 {
+    /* on vérifie pour chaque partie du bateau à placer si:
+     * - on ne rencontre pas un autre bateau
+     * - on reste dans les limites de la carte
+     */
+    for(unsigned int i = 0; i < b->size(); ++i)
+    {
+        if( ((x >= 0) && (x <= 9) ) && ((x >= 0) && (x <= 9)) ) // Si x et y sont compris entre 0 et 9
+        {
+            if( (m_squares[x][y]) == 2 || (m_squares[x][y]) == 3 )
+            {
+                return false;
+            }
+            if(dir)
+            {
+                y++;
+            }
+            else
+            {
+                x++;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
     return true;
 }
 
@@ -122,7 +148,7 @@ void Map::placeBoat(Boat* b, unsigned int x, unsigned int y, bool dir)
     if(check_boat_placement(b, x, y, dir))
     {
         // On modifie les valeurs dans la carte
-        for(int i = 0; i < b->size(); ++i)
+        for(unsigned int i = 0; i < b->size(); ++i)
         {
             if(b->squares()[i])
             {
@@ -152,6 +178,7 @@ void Map::placeBoat(Boat* b, unsigned int x, unsigned int y, bool dir)
     else
     {
         // Raise an exception
+        std::cout << "Error placing boat" << std::endl;
     }
 }
 
@@ -175,11 +202,11 @@ bool Map::checkDefeat()
         {
             return true;
         }
-        return false;
     }
+    return false;
 }
 
-
+/*
 bool Map::isThereABoatHere(unsigned int x, unsigned int y)
 {
     for (auto it = m_boats.begin() ; it != m_boats.end(); ++it)
@@ -187,13 +214,12 @@ bool Map::isThereABoatHere(unsigned int x, unsigned int y)
         if (it->orientation()) // vertical
         {
             // On fait varier y et on regarde si on a un morceau de bateau
-            return true;
+            return ;
         }
         else // horizontal
         {
-            return false;
+            return ;
         }
     }
 }
-/*
 */

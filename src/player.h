@@ -25,6 +25,8 @@ public:
     int m_sonar;
     Map m_map;
 
+    void setMap(Map m);
+
     std::array<std::array<unsigned int, 10>, 10> map();
 
     bool shoot(unsigned int x, unsigned int y, Player* target);
