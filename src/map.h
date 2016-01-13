@@ -28,8 +28,11 @@ public:
     Map();
     ~Map();
 
+    void printDebug();
+
     void print(bool mine);
-    void placeBoat(Boat* b, unsigned int x, unsigned int y);
+    bool check_boat_placement(Boat* b, unsigned int x, unsigned int y, bool orientation);
+    void placeBoat(Boat* b, unsigned int x, unsigned int y, bool orientation);
 
     bool isThereABoatHere(unsigned int x, unsigned int y);
     std::vector<Boat> boats();

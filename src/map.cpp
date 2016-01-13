@@ -8,7 +8,7 @@
 
 #include "map.h"
 
- Map::Map()
+Map::Map()
 {
     // Création de la map
     // On met toutes les valeurs à zéro
@@ -26,6 +26,26 @@ Map::~Map()
 
 }
 
+void Map::printDebug()
+{
+    std::cout << "   A B C D E F G H I J" << std::endl;
+    std::cout << "  /+++++++++++++++++++\\" << std::endl;
+    for (unsigned int i = 0; i < 10; ++i)
+    {
+        std::cout << i << " |";
+        for (unsigned int j = 0; j < 10; ++j)
+        {
+            std::cout << m_squares[j][i];
+            if(j != 9)
+            {
+                std::cout << " ";   
+            }
+        }
+        std::cout << "|" << std::endl;
+    }
+    std::cout << "  \\+++++++++++++++++++/" << std::endl;
+}
+
 void Map::print(bool mine)
 {
     std::cout << "   A B C D E F G H I J" << std::endl;
@@ -37,7 +57,7 @@ void Map::print(bool mine)
         {
             if(mine)
             {
-                switch(m_squares[i][j])
+                switch(m_squares[j][i])
                 {
                     case 0:
                         std::cout << " ";
@@ -48,11 +68,11 @@ void Map::print(bool mine)
                         break;
 
                     case 2:
-                        std::cout << "#";
+                        std::cout << "O";
                         break;
 
                     case 3:
-                        std::cout << "O";
+                        std::cout << "#";
                         break;
 
                     default:
@@ -62,7 +82,7 @@ void Map::print(bool mine)
             }
             else
             {
-                switch(m_squares[i][j])
+                switch(m_squares[j][i])
                 {
                     case 0:
                     case 2:
@@ -74,7 +94,7 @@ void Map::print(bool mine)
                         break;
 
                     case 3:
-                        std::cout << "O";
+                        std::cout << "#";
                         break;
 
                     default:
@@ -92,13 +112,55 @@ void Map::print(bool mine)
     std::cout << "  \\+++++++++++++++++++/" << std::endl;
 }
 
-/*
+bool Map::check_boat_placement(Boat* b, unsigned int x, unsigned int y, bool orientation)
+{
+    return true;
+}
+
+void Map::placeBoat(Boat* b, unsigned int x, unsigned int y, bool dir)
+{
+    if(check_boat_placement(b, x, y, dir))
+    {
+        // On modifie les valeurs dans la carte
+        for(int i = 0; i < b->size(); ++i)
+        {
+            if(b->squares()[i])
+            {
+                m_squares[x][y] = 3;
+            }
+            else
+            {
+                m_squares[x][y] = 2;
+            }
+            if(dir)
+            {
+                y++;
+            }
+            else
+            {
+                x++;
+            }
+        }
+
+        // On modifie les valeurs dans le bateau
+        b->setCoordinates(x, y);
+        b->setOrientation(dir);
+
+        // On ajoute le bateau à la liste des bateaux de la carte
+        m_boats.push_back(*b);
+    }
+    else
+    {
+        // Raise an exception
+    }
+}
+
 std::vector<Boat> Map::boats()
 {
     return m_boats;
 }
 
-std::array<std::array<unsigned int> > Map::squares()
+std::array<std::array<unsigned int, 10>, 10 > Map::squares()
 {
     return m_squares;
 }
@@ -108,7 +170,8 @@ bool Map::checkDefeat()
     // regarde si chaque bateau est coulé
     for (auto it = m_boats.begin() ; it != m_boats.end(); ++it)
     {
-        if(! *it.sunken())
+        // si le bateau a coulé
+        if(!it->sunken())
         {
             return true;
         }
@@ -116,11 +179,12 @@ bool Map::checkDefeat()
     }
 }
 
+
 bool Map::isThereABoatHere(unsigned int x, unsigned int y)
 {
     for (auto it = m_boats.begin() ; it != m_boats.end(); ++it)
     {
-        if (*it.orientation()) // vertical
+        if (it->orientation()) // vertical
         {
             // On fait varier y et on regarde si on a un morceau de bateau
             return true;
@@ -131,4 +195,5 @@ bool Map::isThereABoatHere(unsigned int x, unsigned int y)
         }
     }
 }
+/*
 */
