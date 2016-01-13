@@ -1,7 +1,7 @@
-# Makefile pour prog
+# Makefile pour battleship
 # Copyright (C) Emeric Fremion <scrimet@hotmail.fr>
 # Licenced under the terms of the GLP
-# Created on Month Day Year
+# Created on November 08 2014
 # Description
 
 # project name (generate executable with this name)
@@ -9,20 +9,20 @@ TARGET   = battleship.app
 
 CC       = g++
 # compiling flags here
-CFLAGS   = -Wall -I.
+CFLAGS   = -Wall -I. -std=c++11 -fpermissive
 
-LINKER   = gcc -o
+LINKER   = g++ -o
 # linking flags here
-LFLAGS   = -Wall -I. -lm
+LFLAGS   = -Wall -I. -lm -std=c++11 -fpermissive
 
 # change these to set the proper directories where each files shoould be
 SRCDIR   = src
 OBJDIR   = obj
 BINDIR   = bin
 
-SOURCES  := $(wildcard $(SRCDIR)/*.c)
+SOURCES  := $(wildcard $(SRCDIR)/*.cpp)
 INCLUDES := $(wildcard $(SRCDIR)/*.h)
-OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+OBJECTS  := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 rm       = rm -f
 
 
@@ -30,7 +30,7 @@ $(BINDIR)/$(TARGET): $(OBJECTS)
 	@$(LINKER) $@ $(LFLAGS) $(OBJECTS)
 	@echo "Linking complete!"
 
-$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
+$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "Compiled "$<" successfully!"
 
