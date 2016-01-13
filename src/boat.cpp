@@ -11,7 +11,7 @@
 
 Boat::Boat(unsigned int size) : m_size(size), m_baseX(0), m_baseY(0), m_orientation(true), m_sunken(false), m_squares(std::vector<bool>(size, false))
 {
-    
+
 }
 
 Boat::~Boat()
