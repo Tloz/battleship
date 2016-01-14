@@ -15,14 +15,19 @@
 class Game
 {
 private:
-    Player p1;
-    Player p2;
-    unsigned int time_counter;
-    unsigned int turn_counter;
+    Player m_p1;
+    Player m_p2;
+    unsigned int m_time_counter;
+    unsigned int m_turn_counter;
+    unsigned int m_firstToPlay;
 
 public:
     Game(Player p1, p2);
     ~Game();
+
+    bool someoneLoose();
+    unsigned int getNextPlayer();
+    void play();
 };
 
 
