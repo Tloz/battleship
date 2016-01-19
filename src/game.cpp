@@ -8,7 +8,7 @@
 
 Game::Game(Player p1, p2) : m_p1(p1), m_p2(p2), unsigned int m_time_counter(), m_turn_counter(0)
 {
-    m_firstToPlay = (unsigned int) rand() % 2
+    m_firstToPlay = (unsigned int) rand() % 2;
 }
 
 Game::~Game()
