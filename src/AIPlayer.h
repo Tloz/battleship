@@ -9,19 +9,22 @@
 #include "map.h"
 #include <string>
 
- enum class AI
- {
+enum class AI
+{
     VerryDummy,
     Dummy,
     Normal,
     Clever,
     Omniscient 
- };
+};
+
+
 
 class AIPlayer : public Player
 {
 
 private:
+    static std::vector<std::string> CPU_names;
     std::pair<unsigned int, unsigned int> nextMove;
     std::pair<unsigned int, unsigned int> lastMove;
 
